@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
                 ResetPassword resetPassword = response.body();
 
-                if (resetPassword.getResult().equalsIgnoreCase(RESULT_OK)) {
+                if (resetPassword != null && resetPassword.getResult().equalsIgnoreCase(RESULT_OK)) {
                     Intent intent = new Intent(MainActivity.this, CompletedRegistrationActivity.class);
                     startActivity(intent);
                     finish();
