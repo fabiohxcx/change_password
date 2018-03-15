@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/active_button_ripple">
+    <item android:bottom="5dp">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <corners android:radius="30dp" />
+
+            <padding
+                android:bottom="5dp"
+                android:left="60dp"
+                android:right="60dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/inactive_button" />
+
+        </shape>
+        <shape>
+
+        </shape>
+    </item>
+</ripple>
