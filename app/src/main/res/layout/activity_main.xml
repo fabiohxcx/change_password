@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="fabiohideki.com.resetpassword.viewmodel.ResetPasswordViewModel" />
@@ -181,6 +183,7 @@
                     android:id="@+id/bt_confirm"
                     style="@style/buttonStyle"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
@@ -196,10 +199,23 @@
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
 
-        <include
-            android:id="@+id/progress_include"
-            layout="@layout/progress_overlay"
-            android:visibility="@{viewModel.enableProgressbar ? View.VISIBLE : View.GONE}" />
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/progressBarHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:animateLayoutChanges="true"
+            android:background="@android:color/black"
+            android:clickable="true"
+            android:visibility="@{viewModel.enableProgressbar ? View.VISIBLE : View.GONE}">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true" />
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>
