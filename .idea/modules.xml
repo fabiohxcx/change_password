@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/resetpassword.iml" filepath="$PROJECT_DIR$/resetpassword.iml" />
+      <module fileurl="file://C:\Users\fabio.lagoa.LGE\Desktop\change_password\app\app.iml" filepath="C:\Users\fabio.lagoa.LGE\Desktop\change_password\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/change_password.iml" filepath="$PROJECT_DIR$/change_password.iml" />
+      <module fileurl="file://C:\Users\fabio.lagoa.LGE\Desktop\change_password\resetpassword.iml" filepath="C:\Users\fabio.lagoa.LGE\Desktop\change_password\resetpassword.iml" />
     </modules>
   </component>
 </project>

@@ -5,11 +5,11 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.util.Log;
 import android.widget.Toast;
 
 import fabiohideki.com.resetpassword.R;
@@ -22,11 +22,18 @@ import fabiohideki.com.resetpassword.model.ResetPasswordResponse;
 
 public class ResetPasswordViewModel extends AndroidViewModel {
 
-    public final ObservableField<String> password = new ObservableField<>();
-    public final ObservableField<String> passwordConfirm = new ObservableField<>();
+    public final ObservableField<String> password = new ObservableField<>("");
+    public final ObservableField<String> passwordConfirm = new ObservableField<>("");
 
     public final ObservableField<String> passwordError = new ObservableField<>();
     public final ObservableField<String> passwordConfirmError = new ObservableField<>();
+
+    public ObservableBoolean isPasswordOk = new ObservableBoolean();
+
+    public ObservableBoolean enableBtConfirm = new ObservableBoolean();
+
+    public ObservableBoolean enableProgressbar = new ObservableBoolean(false);
+
 
     private MutableLiveData<ResetPasswordResponse> resetPasswordResponse;
 
@@ -52,9 +59,14 @@ public class ResetPasswordViewModel extends AndroidViewModel {
 
     public void onBtnChangePasswordClick() {
 
+        enableProgressbar.set(true);
+
+        Toast.makeText(context, "onBtnChangePasswordClick", Toast.LENGTH_SHORT).show();
+
         if (isPasswordsOk(password.get(), passwordConfirm.get(), true)) {
 
             hideErrors();
+
 
             //doLogin(userId, password);
 
@@ -64,6 +76,7 @@ public class ResetPasswordViewModel extends AndroidViewModel {
 
     private boolean isPasswordsOk(String password, String passwordConfirm, boolean showError) {
 
+        Log.d("ResetPasswordViewModel", "isPasswordsOk: " + password + " - " + passwordConfirm);
         //check empty fields
         if (showError) {
             if (TextUtils.isEmpty(password)) {
@@ -107,22 +120,47 @@ public class ResetPasswordViewModel extends AndroidViewModel {
         passwordConfirmError.set(null);
     }
 
-    public void checkPasswordFields(Button btConfirm, ImageView ivLock) {
+    public void onTextChangedPassword(CharSequence charSequence, int i, int i1, int i2) {
+
+        String p1 = charSequence.toString();
+        String p2 = passwordConfirm.get();
+
+        checkPasswordFields(p1, p2);
+
+        Log.d("ResetPasswordViewModel", "checkPasswordFields: p1: " + p1 + " p2: " + p2 + "\n" + charSequence.toString());
+
+
+    }
+
+    public void onTextChangedPasswordConfirm(CharSequence charSequence, int i, int i1, int i2) {
+
+        String p1 = password.get();
+        String p2 = charSequence.toString();
+
+        checkPasswordFields(p1, p2);
+
+        Log.d("ResetPasswordViewModel", "checkPasswordFields: p1: " + p1 + " p2: " + p2 + "\n" + charSequence.toString());
+
+    }
+
+    public void checkPasswordFields(String p1, String p2) {
         hideErrors();
 
-        if (TextUtils.isEmpty(password.get()) || TextUtils.isEmpty(passwordConfirm.get())) {
-            btConfirm.setEnabled(false);
+        if (TextUtils.isEmpty(p1) || TextUtils.isEmpty(p2)) {
+            enableBtConfirm.set(false);
+            //btConfirm.setEnabled(false);
         } else {
-            btConfirm.setEnabled(true);
+            enableBtConfirm.set(true);
+            //btConfirm.setEnabled(true);
         }
 
-        if (isPasswordsOk(password.get(), passwordConfirm.get(), false)) {
-            Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show();
-            ivLock.setImageDrawable(context.getDrawable(R.drawable.ic_password_green));
+        if (isPasswordsOk(p1, p2, false)) {
+            isPasswordOk.set(true);
         } else {
-            ivLock.setImageDrawable(context.getDrawable(R.drawable.ic_password));
+            isPasswordOk.set(false);
         }
 
     }
+
 
 }

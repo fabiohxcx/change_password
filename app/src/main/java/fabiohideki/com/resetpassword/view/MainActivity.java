@@ -9,26 +9,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import butterknife.BindString;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import fabiohideki.com.resetpassword.R;
-import fabiohideki.com.resetpassword.databinding.ContentMainBinding;
+import fabiohideki.com.resetpassword.databinding.ActivityMainBinding;
 import fabiohideki.com.resetpassword.model.ResetPasswordResponse;
 import fabiohideki.com.resetpassword.viewmodel.ResetPasswordViewModel;
 
-public class MainActivity extends AppCompatActivity implements TextWatcher {
-
-    @BindView(R.id.progressBarHolder)
-    FrameLayout mFrameLayoutProgressBar;
+public class MainActivity extends AppCompatActivity {
 
     //Strings
-
     @BindString(R.string.error_service)
     String mErrorService;
 
@@ -45,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     private ResetPasswordViewModel mViewModel;
 
-    private ContentMainBinding binding;
+    private ActivityMainBinding binding;
 
 
     @Override
@@ -57,14 +49,13 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.content_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mViewModel = ViewModelProviders.of(this).get(ResetPasswordViewModel.class);
         binding.setViewModel(mViewModel);
 
         mViewModel.resetPasswordResponseLiveData().observe(this, new Observer<ResetPasswordResponse>() {
             @Override
             public void onChanged(@Nullable ResetPasswordResponse resetPasswordResponse) {
-                mFrameLayoutProgressBar.setVisibility(View.GONE);
 
                 if (resetPasswordResponse != null && resetPasswordResponse.getResult().equalsIgnoreCase(RESULT_OK)) {
                     Intent intent = new Intent(MainActivity.this, CompletedRegistrationActivity.class);
@@ -91,13 +82,10 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         binding.btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFrameLayoutProgressBar.setVisibility(View.VISIBLE);
+                //mFrameLayoutProgressBar.setVisibility(View.VISIBLE);
                 mViewModel.onBtnChangePasswordClick();
             }
         });
-
-        binding.etNewPassword.addTextChangedListener(this);
-        binding.etNewPasswordConfirm.addTextChangedListener(this);
 
     }
 
@@ -156,20 +144,5 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
           });
       }
   */
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        mViewModel.checkPasswordFields(binding.btConfirm, binding.ivLock);
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-
-    }
 }
