@@ -1,6 +1,6 @@
 package fabiohideki.com.resetpassword.network;
 
-import fabiohideki.com.resetpassword.model.ResetPassword;
+import fabiohideki.com.resetpassword.model.ResetPasswordResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -14,6 +14,6 @@ public interface LoginService {
 
     @POST("/resetPassword")
     @FormUrlEncoded
-    Call<ResetPassword> resetPassword(@Field("userId") String userId, @Field("newPassword") String newPassword);
+    Call<ResetPasswordResponse> resetPassword(@Field("userId") String userId, @Field("newPassword") String newPassword);
 
 }

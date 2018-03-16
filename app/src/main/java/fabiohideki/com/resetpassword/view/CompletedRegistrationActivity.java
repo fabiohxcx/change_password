@@ -1,4 +1,4 @@
-package fabiohideki.com.resetpassword.ui;
+package fabiohideki.com.resetpassword.view;
 
 import android.content.Intent;
 import android.os.Bundle;
