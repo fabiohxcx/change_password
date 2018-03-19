@@ -10,7 +10,6 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import fabiohideki.com.resetpassword.R;
 import fabiohideki.com.resetpassword.Utils;
@@ -62,11 +61,9 @@ public class ResetPasswordViewModel extends AndroidViewModel implements ResetPas
 
     public void onBtnChangePasswordClick() {
 
-        enableProgressbar.set(true);
-
-        Toast.makeText(context, "onBtnChangePasswordClick", Toast.LENGTH_SHORT).show();
-
         if (isPasswordsOk(password.get(), passwordConfirm.get(), true)) {
+
+            enableProgressbar.set(true);
 
             ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
             resetPasswordRequest.setUserId("1000");

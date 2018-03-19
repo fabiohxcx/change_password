@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import fabiohideki.com.resetpassword.R;
 
 public class CompletedRegistrationActivity extends AppCompatActivity {
@@ -16,7 +14,6 @@ public class CompletedRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed_registration);
-        ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -24,8 +21,7 @@ public class CompletedRegistrationActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.bt_ok)
-    public void OkAction(View view) {
+    public void okAction(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();

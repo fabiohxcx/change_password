@@ -11,27 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import butterknife.BindString;
-import butterknife.ButterKnife;
 import fabiohideki.com.resetpassword.R;
 import fabiohideki.com.resetpassword.databinding.ActivityMainBinding;
 import fabiohideki.com.resetpassword.model.ResetPasswordResponse;
 import fabiohideki.com.resetpassword.viewmodel.ResetPasswordViewModel;
 
 public class MainActivity extends AppCompatActivity {
-
-    //Strings
-    @BindString(R.string.error_service)
-    String mErrorService;
-
-    @BindString(R.string.error_network_or_service)
-    String mErrorNetworkOrService;
-
-
-    @BindString(R.string.retry)
-    String mRetry;
-
-    private String userId = "1000";
 
     private static final String RESULT_OK = "Ok";
 
@@ -44,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
 
-                    Snackbar snackbar = Snackbar.make(binding.svContent, mErrorService, Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(binding.svContent, getString(R.string.error_service), Snackbar.LENGTH_LONG);
 
-                    snackbar.setAction(mRetry, new View.OnClickListener() {
+                    snackbar.setAction(getString(R.string.retry), new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             mViewModel.onBtnChangePasswordClick();
@@ -87,61 +71,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
-    /*  private void doLogin(String userId, String password) {
-
-          LoginService loginService = APIClient.getRetrofitInstance().create(LoginService.class);
-
-          Call<ResetPasswordResponse> call = loginService.resetPassword(userId, password);
-
-          call.enqueue(new Callback<ResetPasswordResponse>() {
-              @Override
-              public void onResponse(Call<ResetPasswordResponse> call, Response<ResetPasswordResponse> response) {
-
-                  ResetPasswordResponse resetPasswordResponse = response.body();
-
-                  if (resetPasswordResponse != null && resetPasswordResponse.getResult().equalsIgnoreCase(RESULT_OK)) {
-                      Intent intent = new Intent(MainActivity.this, CompletedRegistrationActivity.class);
-                      startActivity(intent);
-                      finish();
-                  } else {
-                      mFrameLayoutProgressBar.setVisibility(View.GONE);
-
-                      Snackbar snackbar = Snackbar.make(binding.svContent, mErrorService, Snackbar.LENGTH_LONG);
-
-                      snackbar.setAction(mRetry, new View.OnClickListener() {
-                          @Override
-                          public void onClick(View view) {
-                              confirm(null);
-                          }
-                      });
-
-                      snackbar.show();
-                  }
-
-
-              }
-
-              @Override
-              public void onFailure(Call<ResetPasswordResponse> call, Throwable t) {
-
-                  mFrameLayoutProgressBar.setVisibility(View.GONE);
-
-                  Snackbar snackbar = Snackbar.make(binding.svContent, mErrorNetworkOrService, Snackbar.LENGTH_LONG);
-
-                  snackbar.setAction(mRetry, new View.OnClickListener() {
-                      @Override
-                      public void onClick(View view) {
-                          confirm(null);
-                      }
-                  });
-
-                  snackbar.show();
-
-              }
-          });
-      }
-  */
 
 }
