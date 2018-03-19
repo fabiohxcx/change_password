@@ -170,6 +170,7 @@ public class ResetPasswordViewModel extends AndroidViewModel implements ResetPas
 
     @Override
     public void onResult(ResetPasswordResponse response) {
+        enableProgressbar.set(false);
         resetPasswordResponse.setValue(response);
     }
 }
