@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         binding.btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mFrameLayoutProgressBar.setVisibility(View.VISIBLE);
                 mViewModel.onBtnChangePasswordClick();
             }
         });

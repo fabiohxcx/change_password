@@ -14,13 +14,16 @@ import android.widget.Toast;
 
 import fabiohideki.com.resetpassword.R;
 import fabiohideki.com.resetpassword.Utils;
+import fabiohideki.com.resetpassword.model.ResetPasswordRequest;
 import fabiohideki.com.resetpassword.model.ResetPasswordResponse;
+import fabiohideki.com.resetpassword.network.ResetPasswordCallback;
+import fabiohideki.com.resetpassword.repository.LoginRepository;
 
 /**
  * Created by hidek on 15/03/2018.
  */
 
-public class ResetPasswordViewModel extends AndroidViewModel {
+public class ResetPasswordViewModel extends AndroidViewModel implements ResetPasswordCallback {
 
     public final ObservableField<String> password = new ObservableField<>("");
     public final ObservableField<String> passwordConfirm = new ObservableField<>("");
@@ -65,10 +68,15 @@ public class ResetPasswordViewModel extends AndroidViewModel {
 
         if (isPasswordsOk(password.get(), passwordConfirm.get(), true)) {
 
+            ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
+            resetPasswordRequest.setUserId("1000");
+            resetPasswordRequest.setPassword(password.get());
+
             hideErrors();
 
+            LoginRepository loginRepository = new LoginRepository();
 
-            //doLogin(userId, password);
+            loginRepository.resetPassword(resetPasswordRequest, this);
 
         }
 
@@ -163,4 +171,8 @@ public class ResetPasswordViewModel extends AndroidViewModel {
     }
 
 
+    @Override
+    public void onResult(ResetPasswordResponse response) {
+        resetPasswordResponse.setValue(response);
+    }
 }
